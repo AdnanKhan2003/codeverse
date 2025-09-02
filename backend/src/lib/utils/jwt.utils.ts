@@ -6,7 +6,7 @@ import {
   REFRESH_TOKEN_EXPIRY,
   REFRESH_TOKEN_SECRET,
 } from "../../constants/env";
-import { UserPayload } from "../../types/types";
+import { UserPayload } from "../../types/interfaces";
 
 
 const generateAccessToken = (payload: UserPayload) => {

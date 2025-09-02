@@ -7,7 +7,7 @@ const healthCheck = asyncHandler(
   (req: Request, res: Response, next: NextFunction) => {
     return res
       .status(OK)
-      .json(new APIResponse(OK, { status: "Healthy" }, "API is Working"));
+      .json(new APIResponse(OK, null, "API is Working"));
   }
 );
 

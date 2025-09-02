@@ -1,12 +1,12 @@
 import { APIResponseInterface } from "../../types/interfaces";
 
-class APIResponse implements APIResponseInterface {
+class APIResponse<T> implements APIResponseInterface<T> {
   statusCode: number;
-  data: object;
+  data: T;
   message: string;
   success: boolean;
 
-  constructor(statusCode: number, data: object, message: string) {
+  constructor(statusCode: number, data: T, message: string) {
     this.statusCode = statusCode;
     this.data = data;
     this.message = message;

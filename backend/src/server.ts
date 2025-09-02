@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 
 import healthCheckRoute from "./routes/healthcheck.routes";
 import authRoutes from "./routes/auth.routes";
+import projectRoutes from "./routes/project.routes";
+import codeRoutes from "./routes/code.routes";
 
 import { CORS_ORIGIN } from "./constants/env";
 import { errorHandler } from "./middleware/error.middleware";
@@ -23,8 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
-app.use(healthCheckRoute);
-app.use(authRoutes);
+app.use('/api/health', healthCheckRoute);
+app.use('/api/auth', authRoutes);
+app.use('/api/project', projectRoutes);
+app.use('/api/code', codeRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

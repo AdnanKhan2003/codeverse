@@ -14,6 +14,7 @@ class APIError extends Error implements APIErrorInterface {
     stack: string | undefined = ""
   ) {
     super(message);
+    this.message = message;
     this.statusCode = statusCode;
     this.data = null;
     this.success = false;

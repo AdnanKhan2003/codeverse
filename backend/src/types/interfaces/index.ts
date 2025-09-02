@@ -1,11 +1,13 @@
-export interface APIResponseInterface {
+import { JwtPayload } from "jsonwebtoken";
+
+interface APIResponseInterface<T> {
   statusCode: number;
-  data: object;
+  data: T;
   message: string;
   success: boolean;
 }
 
-export interface APIErrorInterface {
+interface APIErrorInterface {
   statusCode: number;
   data: null;
   message: string;
@@ -13,3 +15,9 @@ export interface APIErrorInterface {
   errors: unknown[] | string;
   stack: string | undefined;
 }
+
+interface UserPayload extends JwtPayload {
+  userId: string;
+};
+
+export { APIResponseInterface, APIErrorInterface, UserPayload };
