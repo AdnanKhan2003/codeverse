@@ -1,4 +1,5 @@
-import express from "express";
+// import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 
 import { createProject, deleteProject, getProject, getProjects, updateProject, updateProjectName } from "../controllers/project.controllers";
 import { protectRoute } from "../middleware/auth.middleware";
@@ -7,7 +8,10 @@ import { createProjectValidations } from "../validations/project.validations";
 
 const router = express.Router();
 
-router.post('/create', protectRoute, createProjectValidations, validate, createProject);
+router.post('/create-project', protectRoute, (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    next();  
+}, createProjectValidations, validate, createProject);
 
 router.get('/', protectRoute, getProjects);
 

@@ -6,8 +6,10 @@ import { sql } from "../lib/utils/db.utils";
 
 const createProject = asyncHandler(async (req, res, next) => {
     const { name, code, projectLanguage, version } = req.body;
-    const createdBy = req.user?.id;
+    const createdBy = Number(req.user?.id);
 
+    console.log(name, code, projectLanguage, version, createdBy);
+    
     if(!createdBy) {
         throw new APIError(UNAUTHORIZED, "User Not Authorized");
     }
@@ -30,7 +32,7 @@ const createProject = asyncHandler(async (req, res, next) => {
 });
 
 const getProjects = asyncHandler(async (req, res, next) => {
-    const createdBy = req.user?.id;
+    const createdBy = Number(req.user?.id);
 
     if(!createdBy) {
         throw new APIError(UNAUTHORIZED, "User Not Authorized");

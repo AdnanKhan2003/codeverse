@@ -8,11 +8,11 @@ import { protectRoute } from "../middleware/auth.middleware";
 
 const router = express.Router();
 
-router.post('/signup', signupValidation, validate, upload, registerUser);
+router.post('/signup', upload, signupValidation, validate, registerUser);
 
 router.post('/login', loginValidation, validate, loginUser);
 
-router.post('/logout', protectRoute, validate, logoutUser);
+router.post('/logout', protectRoute, logoutUser);
 
 router.post('/refresh-token', protectRoute, refreshAccessTokenValidation, validate, refreshAccessToken);
 

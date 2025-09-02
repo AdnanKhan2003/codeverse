@@ -7,7 +7,7 @@ import { verifyToken } from "../lib/utils/jwt.utils";
 import { AuthUser } from "../types/auth.types";
 import { UserPayload } from "../types/interfaces";
 
-const protectRoute = asyncHandler(async (req, _, next) => {
+const protectRoute = asyncHandler(async (req, res, next) => {
   const token = req.header("Authorization")?.trim().replace("Bearer", "");
 
   if (!token) {
@@ -33,7 +33,7 @@ const protectRoute = asyncHandler(async (req, _, next) => {
   const users = await sql`
     SELECT id, fullName, email, profilePic, createdAt
     FROM users
-    WHERE id = ${decodedToken.userId}
+    WHERE id = ${Number(decodedToken.userId)}
   ` as AuthUser[];
 
   const user = users[0];

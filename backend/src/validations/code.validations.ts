@@ -5,14 +5,14 @@ const codeValidations = [
     .isString()
     .withMessage("Language Must be a String")
     .trim()
-    .notEmpty()
+    .exists()
     .withMessage("Language is Required"),
   check("version").optional().isString().withMessage("Version Must be a String").trim(),
   check("code")
     .isString()
     .withMessage("Code Must be a String")
     .trim()
-    .notEmpty()
+    .exists()
     .withMessage("Code is Required"),
 ];
 

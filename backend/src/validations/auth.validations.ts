@@ -9,7 +9,6 @@ const signupValidation = [
     .withMessage("Full Name must be atleast 3 characters Long!"),
   check("email").isEmail().withMessage("Invalid Email ID").normalizeEmail(),
   check("password")
-    .isAlphanumeric()
     .isLength({ min: 5 })
     .withMessage("Password must be atleast 5 characters Long!")
 ];
@@ -17,13 +16,12 @@ const signupValidation = [
 const loginValidation = [
   check("email").isEmail().withMessage("Invalid Email ID").normalizeEmail(),
   check("password")
-    .isAlphanumeric()
     .isLength({ min: 5 })
     .withMessage("Password must be atleast 5 characters Long!"),
 ];
 
 const refreshAccessTokenValidation = [
-  check('refreshAccessToken')
+  check('refreshToken')
   .exists().withMessage("Refresh Token is Required!")
   .isString().withMessage("Refresh Token must be String!")
   .notEmpty().withMessage("Refresh Token cannot be Empty!")

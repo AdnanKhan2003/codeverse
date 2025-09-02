@@ -14,6 +14,8 @@ const getRuntimes = asyncHandler(async (req, res, next) => {
 
 const executeCode = asyncHandler(async (req, res, next) => {
     const { language, version, code } = req.body;
+    console.log(language, version, code);
+    
 
     const response = await pistonAPI.post('/execute', {
         language,

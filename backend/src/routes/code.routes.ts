@@ -6,8 +6,14 @@ import { validate } from "../middleware/validate.middleware";
 
 const router = express.Router();
 
-router.get('/runtimes', protectRoute, getRuntimes);
+router.get("/runtimes", protectRoute, getRuntimes);
 
-router.post('/execute-code', protectRoute, codeValidations, validate, executeCode);
+router.post(
+  "/execute-code",
+  protectRoute,
+  codeValidations,
+  validate,
+  executeCode
+);
 
 export default router;
