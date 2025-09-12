@@ -1,0 +1,22 @@
+.main__header {
+    background: var(--surface);
+}
+
+.main__header__wrapper {
+    padding: 1rem 3rem;
+}
+
+.main__header__wrapper,
+.main__logo__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mainlogo__name {
+    margin-left: .64rem;
+}
+
+.main__nav__links__far__right {
+    margin-left: 1rem;
+}

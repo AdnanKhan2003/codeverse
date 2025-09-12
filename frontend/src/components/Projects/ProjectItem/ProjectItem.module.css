@@ -1,0 +1,19 @@
+
+.project__item {
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 1.3rem;
+}
+.project__item__text__content {
+    justify-content: space-between;
+    padding-left: 1.4rem;
+}
+.project__item,
+.project__item__text__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.project__item__info {
+    margin-right: auto;
+}
