@@ -23,11 +23,11 @@ const languageLogos : Record<string, StaticImageData> = {
   javascript: javascriptLogo,
 };
 
-const ProjectItem = ({ project }: ProjectProps) => {
+const ProjectItem = ({ project, onClick }: ProjectProps) => {
   const logoImg = languageLogos[project.projectLanguage] ?? mainLogo;
   
   return (
-    <div className={`${styles.project__item}`}>
+    <div className={`${styles.project__item}`} onClick={() => onClick(project.id)}>
         <div className={`${styles.project__item__language}`}>
           <Image src={logoImg} height={35} width={35} alt="Project Language" />
         </div>

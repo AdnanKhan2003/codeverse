@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import styles from "./Navbar.module.css";
 
-const mainLogo = "/logos/codeverse_logo.png";
+import mainLogo from "@/assets/logos/codeverse_logo.png";
 
 const Navbar = () => {
   return (

@@ -1,0 +1,11 @@
+.project__details__container{
+    display: flex;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.code__container,
+.output__container {
+    width: 50%;
+    height: 100%;
+}

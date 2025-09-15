@@ -9,7 +9,7 @@ type ButtonProps = {
 };
 
 type Project = {
-    id: number;
+    id: string;
     projectName: string;
     date: string;
     projectLanguage: string;
@@ -17,6 +17,7 @@ type Project = {
 
 type ProjectProps = {
     project: Project;
+    onClick: (id: string) => void;
 };
 
 export type { ButtonProps, Project, ProjectProps };
