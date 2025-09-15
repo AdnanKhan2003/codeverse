@@ -39,6 +39,7 @@ export default function RootLayout({
       >
         <Navbar />
         <main>{children}</main>
+        <div id="modal__root"></div>
       </body>
     </html>
   );

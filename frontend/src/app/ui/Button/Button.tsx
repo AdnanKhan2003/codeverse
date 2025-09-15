@@ -1,6 +1,6 @@
 import styles from './Button.module.css';
 
-import { ButtonProps } from '@/app/types';
+import { ButtonProps } from '@/app/types/button';
 
 const Button = ({ children, name, type, size, style, ...props }: ButtonProps) => {
   const sizeClass = size ? `button__${size}` : 'button__medium';

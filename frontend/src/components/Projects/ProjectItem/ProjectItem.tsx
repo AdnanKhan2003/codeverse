@@ -1,7 +1,7 @@
 import Image, { StaticImageData } from 'next/image';
 
 import Button from '@/app/ui/Button/Button';
-import type { ProjectProps } from "@/app/types";
+import type { ProjectProps } from "@/app/types/project";
 
 import styles from './ProjectItem.module.css';
 
