@@ -1,9 +1,9 @@
 import Image, { StaticImageData } from 'next/image';
+import { MdModeEdit } from "react-icons/md";
+import { AiFillDelete } from "react-icons/ai";
 
-import Button from '@/app/ui/Button/Button';
-import type { ProjectProps } from "@/app/types/project";
-
-import styles from './ProjectItem.module.css';
+import Button from '@/ui/Button/Button';
+import type { ProjectProps } from "@/types/project";
 
 import pythonLogo from "@/assets/logos/python.png"
 import bashLogo from "@/assets/logos/bash.png"
@@ -11,6 +11,8 @@ import cLogo from "@/assets/logos/c.png"
 import cppLogo from "@/assets/logos/cpp.png"
 import javaLogo from "@/assets/logos/java.png"
 import javascriptLogo from "@/assets/logos/javascript.png"
+
+import styles from './ProjectItem.module.css';
 
 const mainLogo = "/logos/codeverse_logo.png";
 
@@ -38,9 +40,9 @@ const ProjectItem = ({ project, onClick }: ProjectProps) => {
             <p className="project__item__info__date">{project.date}</p>
           </div>
 
-          <div className="project__item__btns__container">
-            <Button name="edit" type="button" style={{ marginRight: '1rem' }}>Edit</Button>
-            <Button name="edit" type="button">Delete</Button>
+          <div className={`${styles.project__item__btns__container}`}>
+            <Button name="edit" type="button" size="small" style={{ marginRight: '1rem' }} Icon={MdModeEdit} />
+            <Button name="delete" type="button" size="small" Icon={AiFillDelete} classes="button__delete" />
             {/* <button className="button btn__edit">Edit</button>
             <button className="button btn__delete">Delete</button> */}
           </div>

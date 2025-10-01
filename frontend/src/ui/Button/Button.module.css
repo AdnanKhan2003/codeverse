@@ -12,6 +12,15 @@
     color: var(--background);
     transition: all .3s ease-in-out;
 }
+.button__delete:hover {
+    background-color: red;
+    border: 1px solid red;
+    transition: all .3s ease-in-out;
+}
+.button__small {
+    padding: .34rem .4rem;
+    font-size: .89rem;
+}
 .button__medium {
     padding: .34rem .894rem;
     font-size: .91rem;

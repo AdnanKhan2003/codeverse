@@ -1,5 +1,18 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
-  --foreground: #ededed;
+  /* --foreground: #ededed; */
+  --white: #fff;
+  --black: #000;
   --background: #121212;
   --surface: #1e1e1e;   
   --foreground: #e0e0e0;       
@@ -22,9 +35,6 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -41,4 +51,12 @@ a {
 img {
   display: block;
   width: 100%;
+}
+
+#modal__root {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

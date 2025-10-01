@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "./Navbar.module.css";
-
 import mainLogo from "@/assets/logos/codeverse_logo.png";
+
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   return (

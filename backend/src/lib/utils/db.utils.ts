@@ -36,7 +36,7 @@ const initDB = async () => {
       name VARCHAR(255) NOT NULL,
       code VARCHAR(255),
       createdBy INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      projectLanguage VARCHAR(255) CHECK (projectLanguage IN('python', 'javascript', 'java', 'cpp', 'c', 'go', 'bash')),
+      projectLanguage VARCHAR(255) CHECK (projectLanguage IN('python', 'javascript', 'java', 'cpp', 'c', 'bash')),
       version VARCHAR(255) NOT NULL,
       createdAt TIMESTAMP DEFAULT NOW(),
       updatedAt TIMESTAMP DEFAULT NOW()

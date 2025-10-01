@@ -1,0 +1,32 @@
+.container__dialog {
+  position: fixed;
+  width: 90%;
+  max-width: 500px;
+  border-radius: .53rem;
+  top: 50%;
+  left: 50%;
+  border: none;
+  outline: none;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: var(--border);
+  color: var(--foreground);
+  padding: 2rem 3rem;
+  position: relative;
+  /* pointer-events: all; */
+}
+
+.container__dialog::backdrop {
+  background-color: rgba(0, 0, 0, .3);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+}
+
+.btn__close__modal {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem 1rem 0 0;
+  font-size: 1.2rem;
+}

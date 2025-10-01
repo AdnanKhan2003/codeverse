@@ -1,0 +1,56 @@
+
+.form__login {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.btns__form__login__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.btns__form__login__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.btn  {
+    max-width: 300px;
+    width: 90%;
+    padding: .453rem .7rem;
+    border: none;
+    border-radius: .3rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn__login {
+    margin-bottom: .91rem;
+}
+.btn__login:hover {
+    background-color: var(--muted);
+    /* background-color: var(--surface); */
+    /* color: var(--foreground); */
+    color: var(--white);
+    transition: all .3s ease-in-out;
+}
+
+.btn__guest {
+    background-color: var(--surface);
+    color: var(--foreground);
+}
+.btn__guest:hover {
+    background-color: #333333;
+    /* background-color: var(--foreground); */
+    /* color: var(--background); */
+    color: var(--foreground);
+    transition: all .3s ease-in-out;
+}

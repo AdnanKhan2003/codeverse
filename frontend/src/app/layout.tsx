@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar/Navbar";
+import ConditionalNavbar from "@/components/Navbar/ConditionalNavbar/ConditionalNavbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
-        <Navbar />
+        <ConditionalNavbar />
         <main>{children}</main>
         <div id="modal__root"></div>
       </body>

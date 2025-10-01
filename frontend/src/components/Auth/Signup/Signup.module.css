@@ -1,0 +1,77 @@
+.container__signup {
+    width: 100%;
+}
+
+.wrapper__signup {
+    /* background-color: var(--surface); */
+    padding: 3rem 0;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: .3rem;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.form__title {
+    font-size: 1.42rem;
+    text-transform: uppercase;
+}
+
+
+
+.separator__input {
+    display: block;
+    padding: .41rem 0;
+}
+
+.separator__input,
+.input {
+    margin: 0 auto;
+}
+
+.label,
+.input,
+.input__password__container {
+    display: block;
+    max-width: 300px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.input,
+.input__password__container {
+    border: none;
+    border-radius: .3rem;
+    outline: none;
+    padding: .3rem .7rem;
+    background: var(--foreground);
+}
+
+.input__password__container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input__password__container > .input__password {
+    margin: 0;
+    padding: 0;
+}
+
+.input__password__container > svg {
+    position: absolute;
+    right: 0;
+    z-index: 3;
+    font-size: .9rem;
+    margin-right: .6rem;
+    color: var(--background);
+    cursor: pointer;
+}
+
+.input__password__container > svg:hover {
+    color: #333333;
+    transition: all .3s ease-in-out;
+}

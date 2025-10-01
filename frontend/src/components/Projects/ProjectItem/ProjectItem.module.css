@@ -3,6 +3,15 @@
     width: 100%;
     justify-content: flex-start;
     margin-bottom: 1.3rem;
+    padding: .34rem .4rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+.project__item:hover {
+    background-color: var(--surface);
+}
+.project__item img {
+    height: auto;
 }
 .project__item__text__content {
     justify-content: space-between;
@@ -16,4 +25,9 @@
 }
 .project__item__info {
     margin-right: auto;
+}
+
+.project__item__btns__container button svg {
+    width: 100%;
+    display: block;
 }
