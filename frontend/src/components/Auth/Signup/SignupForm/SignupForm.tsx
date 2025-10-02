@@ -7,6 +7,10 @@ import Input from "@/ui/Input/Input";
 import styles from "./SignupForm.module.css";
 import { codeVerseApi } from "@/lib/axios";
 import { isEmail, isEmpty, minLength } from "@/lib/utils";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { setAuth } from "@/lib/features/auth";
+import { useDispatch } from "react-redux";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,24 +20,26 @@ const SignupForm = () => {
     password: "",
     profilePic: null as File | null,
   });
-  const [ inputErrors, setInputErrors ] = useState({
+  const [inputErrors, setInputErrors] = useState({
     fullName: "",
     email: "",
     password: "",
-    profilePic: ""
+    profilePic: "",
   });
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {  
+  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {
     console.log("eye");
-    
+
     setShowPassword((prevState) => !prevState);
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>, id: string) => {
-    setInputErrors(prevInputs => ({ ...prevInputs, [id]: "" }));
+    setInputErrors((prevInputs) => ({ ...prevInputs, [id]: "" }));
 
     if (id === "file") {
-      const { files } = e.target
+      const { files } = e.target;
       if (files && files.length > 0) {
         setSignupInputs((prevInputs) => ({
           ...prevInputs,
@@ -66,7 +72,7 @@ const SignupForm = () => {
     if (!isEmail(email) || isEmpty(email)) {
       errorsInput.email = "Invalid or Empty Email";
       console.log("q nhi detect");
-      
+
       isValid = false;
     }
 
@@ -82,27 +88,53 @@ const SignupForm = () => {
   const handleSubmitSignupForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("mai hu don");
-    
 
     const isValid = handleFormValidation();
 
-    if(!isValid) return;
-    
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
+    if (!isValid) return;
 
-    console.log(data);
-    
-    
-    // const res = await codeVerseApi.post("/auth/signup", signupInputs);
-    // const data = await res.json();
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData);
 
-    // console.log(data);
-    
+      console.log("signup", data);
+
+      const res = await codeVerseApi.post("/auth/signup", signupInputs);
+      const resData = await res.data;
+
+      if (resData?.success) {
+        localStorage.setItem("accessToken", resData.data.accessToken);
+        localStorage.setItem("refreshToken", resData.data.refreshToken);
+
+        dispatch(
+          setAuth({
+            accessToken: resData.data.accessToken,
+            refreshToken: resData.data.refreshToken,
+          })
+        )
+  
+
+        router.push("/projects");
+        console.log(resData);
+      } else {
+        console.log("failed signup");
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log("Signup Error: ", err.message);
+      } else {
+        console.log("Signup Error", err);
+        
+      }
+    }
   };
 
   return (
-    <form onSubmit={handleSubmitSignupForm} className={`${styles.form__signup}`} noValidate>
+    <form
+      onSubmit={handleSubmitSignupForm}
+      className={`${styles.form__signup}`}
+      noValidate
+    >
       <Input
         onChange={handleChangeInput}
         value={signupInputs.fullName}
@@ -146,13 +178,20 @@ const SignupForm = () => {
         Profile Picture
       </Input>
 
+      <div className={`${styles.navigate__signup__container}`}>
+        <p className="navigate__signup">Already Registered?</p>
+        <span>
+          <Link href="/login">Login</Link>
+        </span>
+      </div>
+
       <div className={`${styles.btns__form__signup__container}`}>
         <button className={`${styles.btn} ${styles.btn__signup}`}>
           Sign Up
         </button>
-        <button className={`${styles.btn} ${styles.btn__guest}`}>
+        <Link href="/login" className={`${styles.btn} ${styles.btn__guest}`}>
           Use Guest Login
-        </button>
+        </Link>
       </div>
     </form>
   );

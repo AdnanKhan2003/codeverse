@@ -12,4 +12,9 @@ type InputProps = {
     showPassword?: boolean;
 };
 
-export type { InputProps };
+type GuestLogin = {
+    email: string;
+    password: string;
+};
+
+export type { InputProps, GuestLogin };

@@ -3,6 +3,26 @@
     padding: 2rem 0;
 }
 
+
+.navigate__signup__container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    max-width: 300px;
+    width: 90%;
+    margin: 0 auto;
+    font-size: .8rem;
+}
+
+.navigate__signup__container span {
+    margin-left: .7rem;
+}
+
+.navigate__signup__container span a {
+    color: var(--link);
+}
+
+
 .btns__form__signup__container {
     display: flex;
     flex-direction: column;
@@ -37,6 +57,8 @@
 .btn__guest {
     background-color: var(--surface);
     color: var(--foreground);
+    font-size: 0.833rem;
+    text-align: center;
 }
 .btn__guest:hover {
     background-color: #333333;
