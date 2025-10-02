@@ -71,3 +71,11 @@
 .input__profilePic {
     background: none;
 }
+
+.input__errors {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 300px;
+    font-size: .74rem;
+    color: indianred;
+}

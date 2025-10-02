@@ -5,7 +5,8 @@ type InputProps = {
     type: string;
     name: string;
     placeholder: string;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    inputErrors: Record<string, string>;
+    onChange?: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
     value?: string;
     onClick?: (e: MouseEvent<HTMLDivElement>) => void;
     showPassword?: boolean;
