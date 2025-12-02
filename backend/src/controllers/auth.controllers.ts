@@ -1,3 +1,4 @@
+import { RequestHandler } from "express";
 import { DEFAULT_PROFILE_PIC } from "../constants/constants";
 import { REFRESH_TOKEN_SECRET } from "../constants/env";
 import {
@@ -185,4 +186,26 @@ const logoutUser = asyncHandler(async (req, res, next) => {
   );
 });
 
-export { loginUser, registerUser, refreshAccessToken, logoutUser };
+const checkAuth = (asyncHandler(async (req, res, next) => {
+  const id = req.user?.id;
+
+  if(!id) {
+    return new APIError(UNAUTHORIZED, "User Not Authenitcated!");
+  }
+
+  const [ user ] = await sql`
+    SELECT 
+    id, fullname, email, profilePic, refreshToken
+    FROM users
+  `;
+
+  if(!user) {
+    return new APIError(NOT_FOUND, "User Not Found");
+  }
+
+  res.status(OK).json(
+    new APIResponse(OK, { user }, "User Not Authenticated")
+  );
+}));
+
+export { loginUser, registerUser, refreshAccessToken, logoutUser, checkAuth };

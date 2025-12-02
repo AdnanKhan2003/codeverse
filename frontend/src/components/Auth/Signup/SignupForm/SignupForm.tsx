@@ -9,7 +9,7 @@ import { codeVerseApi } from "@/lib/axios";
 import { isEmail, isEmpty, minLength } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { setAuth } from "@/lib/features/auth";
+import { setAuth } from "@/lib/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 
 const SignupForm = () => {

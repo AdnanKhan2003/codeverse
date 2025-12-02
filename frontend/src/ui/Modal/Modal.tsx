@@ -38,7 +38,7 @@ const Modal = ({ children, showModal, onClose }: ModalProps) => {
   return (
     <dialog ref={dialogElementRef} onCancel={onClose} className={`${styles.container__dialog}`}>
       <MdClose className={`${styles.btn__close__modal}`} onClick={onClose} />
-      {children}
+      {showModal && children}
     </dialog>
   )
 }

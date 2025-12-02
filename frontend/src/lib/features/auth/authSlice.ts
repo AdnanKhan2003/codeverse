@@ -3,9 +3,18 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '@/lib/store'
 
 // Define a type for the slice state
+interface User {
+  id: string,
+  fullName: string,
+  email: string,
+  profilePic: string,
+  refreshToken: string,
+}
+
 interface AuthState<T> {
   accessToken: T,
   refreshToken: T,
+  user: User | null,
   isLoggedIn: boolean
 }
 
@@ -13,6 +22,7 @@ interface AuthState<T> {
 const initialState: AuthState<null> = {
   accessToken: null,
   refreshToken: null,
+  user: null,
   isLoggedIn: false,
 }
 
@@ -23,11 +33,13 @@ export const authSlice = createSlice({
     setAuth: (state, action) => {
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.user = action.payload.user;
         state.isLoggedIn = true;
     },
     logout: (state) => {
         state.accessToken = null;
         state.refreshToken = null;
+        state.user = null;
         state.isLoggedIn = false;
     }
   },

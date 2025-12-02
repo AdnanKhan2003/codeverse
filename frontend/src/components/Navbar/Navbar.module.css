@@ -13,10 +13,19 @@
     align-items: center;
 }
 
+.main__navbar {
+    display: flex;
+    align-items: center;
+}
+
 .mainlogo__name {
     margin-left: .64rem;
 }
 
 .main__nav__links__far__right {
     margin-left: 1rem;
+}
+
+.main__nav__mr {
+    margin-right: .6rem;
 }

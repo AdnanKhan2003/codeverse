@@ -4,6 +4,7 @@ import Link from "next/link";
 import mainLogo from "@/assets/logos/codeverse_logo.png";
 
 import styles from "./Navbar.module.css";
+import Logout from "../Auth/Logout/Logout";
 
 const Navbar = () => {
   return (
@@ -14,9 +15,10 @@ const Navbar = () => {
           <p className={`${styles.mainlogo__name}`}>CodeVerse</p>
         </Link>
 
-        <nav className="main__navbar">
-          <Link className={`${styles.main__nav__links}`} href="/">Home</Link>
-          <Link className={`${styles.main__nav__links} ${styles.main__nav__links__far__right}`} href="/logout">Logout</Link>
+        <nav className={`${styles.main__navbar}`}>
+          <Link className={`${styles.main__nav__links} ${styles.main__nav__mr}`} href="/">Home</Link>
+          <Logout />
+          {/* <Link className={`${styles.main__nav__links} ${styles.main__nav__links__far__right}`} href="/logout">Logout</Link> */}
         </nav>
       </div>
     </header>

@@ -8,7 +8,12 @@ import { AuthUser } from "../types/auth.types";
 import { UserPayload } from "../types/interfaces";
 
 const protectRoute = asyncHandler(async (req, res, next) => {
-  const token = req.header("Authorization")?.trim().replace("Bearer", "");
+  // console.log("Token: ", req.header("Authorization"));
+  const authHeader = req.header("Authorization");
+  
+  const token = authHeader?.trim().replace(/Bearer\s+/g, "");
+  console.log("🤦‍♂️Token: ", token);
+  
 
   if (!token) {
     throw new APIError(UNAUTHORIZED, "Unauthorized Request");

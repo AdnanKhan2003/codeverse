@@ -10,7 +10,7 @@ import Link from "next/link";
 import { codeVerseApi } from "@/lib/axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setAuth } from "@/lib/features/auth";
+import { setAuth } from "@/lib/features/auth/authSlice";
 
 const LoginForm = () => {
   const [inputValues, setInputValues] = useState({
@@ -95,6 +95,8 @@ const LoginForm = () => {
       localStorage.setItem("accessToken", resData.data.accessToken);
       localStorage.setItem("refreshToken", resData.data.refreshToken);
 
+      console.log("Saving token", resData.data.accessToken);
+      
       dispatch(
         setAuth({
           accessToken: resData.data.accessToken,

@@ -3,6 +3,7 @@ import { Poppins, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ConditionalNavbar from "@/components/Navbar/ConditionalNavbar/ConditionalNavbar";
 import { Providers } from "@/lib/Provider";
+import AuthProvider from "@/components/Auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +40,12 @@ export default function RootLayout({
         className={`${poppins.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
         <Providers>
-          <ConditionalNavbar />
-          <main>{children}</main>
-          <div id="modal__root"></div>
+          <AuthProvider>
+
+            <ConditionalNavbar />
+            <main>{children}</main>
+            <div id="modal__root"></div>
+          </AuthProvider>
         </Providers>
       </body>
     </html>
