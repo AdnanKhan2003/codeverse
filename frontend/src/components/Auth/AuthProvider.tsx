@@ -41,7 +41,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
     restoreAuth();
-  }, [dispatch, isLoggedIn, pathname]);
+  }, [dispatch]);
 
   return (
     <>{children}</>

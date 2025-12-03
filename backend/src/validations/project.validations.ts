@@ -9,8 +9,8 @@ const createProjectValidations = [
     .withMessage("Name Must be a String"),
   check("code")
     .trim()
-    .notEmpty()
-    .withMessage("Code is Required")
+    // .notEmpty()
+    // .withMessage("Code is Required")
     .isString()
     .withMessage("Code Must be a String"),
   check("projectLanguage")

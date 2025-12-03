@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties } from "react";
+import { ReactNode, CSSProperties, MouseEvent } from "react";
 import { IconType } from "react-icons";
 
 type ButtonProps = {
@@ -7,7 +7,7 @@ type ButtonProps = {
     type?: "button" | "submit" | "reset";
     size?: "small" | "medium" | "large";
     style?: CSSProperties;
-    onClick?: () => void;
+    onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
     classes?: string;
     Icon?: IconType;
 };

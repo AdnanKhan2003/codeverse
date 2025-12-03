@@ -26,7 +26,9 @@ const languageLogos : Record<string, StaticImageData> = {
 };
 
 const ProjectItem = ({ project, onClick }: ProjectProps) => {
-  const logoImg = languageLogos[project.projectLanguage] ?? mainLogo;
+  const logoImg = languageLogos[project.projectlanguage] ?? mainLogo;
+  console.log('w', project, project.projectlanguage, languageLogos[project.projectlanguage]);
+  
   
   return (
     <div className={`${styles.project__item}`} onClick={() => onClick(project.id)}>
@@ -36,8 +38,8 @@ const ProjectItem = ({ project, onClick }: ProjectProps) => {
 
         <div className={`${styles.project__item__text__content}`}>
           <div className={`${styles.project__item__info}`}>
-            <h5 className="project__item__info__title">{project.projectName}</h5>
-            <p className="project__item__info__date">{project.date}</p>
+            <h5 className="project__item__info__title">{project.name}</h5>
+            <p className="project__item__info__date">{new Date(project.createdat).toLocaleDateString()}</p>
           </div>
 
           <div className={`${styles.project__item__btns__container}`}>

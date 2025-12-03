@@ -22,16 +22,31 @@ const CreateProjectForm = () => {
         projectNameAndVersion: ""
     });
 
-    const handleClickCreateProject = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClickCreateProject = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         const projectCode = "";
-        const [ projectName, projectVersion ] = newProjectInfo.projectNameAndVersion.split(" ");
+        const [ projectLanguage, projectVersion ] = newProjectInfo.projectNameAndVersion.split(" ");
         console.log(fetchedLanguages);
         console.log(newProjectInfo.projectName);
         console.log(projectVersion);
         console.log(projectCode);
+        console.log(projectLanguage);
         console.log(newProjectInfo.projectNameAndVersion);
+        
+        const response = await codeVerseApi.post("/project/create-project", {
+            name: newProjectInfo.projectName,
+            code: projectCode,
+            projectLanguage,
+            version: projectVersion
+        }, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+
+        const data = response.data;
+        console.log("done: ", data);
         
     };
 
