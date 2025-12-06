@@ -14,7 +14,8 @@ router.post('/login', loginValidation, validate, loginUser);
 
 router.post('/logout', protectRoute, logoutUser);
 
-router.post('/refresh-token', protectRoute, refreshAccessTokenValidation, validate, refreshAccessToken);
+// router.post('/refresh-token', protectRoute, refreshAccessTokenValidation, validate, refreshAccessToken);
+router.post('/refresh-token', refreshAccessTokenValidation, validate, refreshAccessToken);
 
 router.get('/check-auth', protectRoute, checkAuth);
 

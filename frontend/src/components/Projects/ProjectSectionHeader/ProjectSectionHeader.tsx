@@ -17,7 +17,7 @@ const ProjectSectionHeader = () => {
   return (
     <>
       <ModalPortal showModal={showModal} onClose={() => setShowModal(false)}>
-        <CreateProject />
+        <CreateProject setShowModal={setShowModal} />
       </ModalPortal>
 
       <div className={`${styles.project__section__header}`}>

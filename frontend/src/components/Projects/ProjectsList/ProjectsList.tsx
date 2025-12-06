@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import ProjectItem from "../ProjectItem/ProjectItem";
-import type { ProjectItemProps, ProjectsList } from "@/types/project";
+import type { ProjectItemDataProps, ProjectsList } from "@/types/project";
 
 import styles from "./ProjectsList.module.css";
 import { useEffect, useState } from "react";
@@ -13,7 +13,9 @@ import { getAccessToken } from "@/lib/features/auth/authSlice";
 
 const ProjectsList = () => {
   const accessToken = useSelector(getAccessToken);
-  const [ projectsData, setProjectsData ] = useState<ProjectItemProps[] | null>([]);
+  const [projectsData, setProjectsData] = useState<ProjectItemDataProps[] | null>([]);
+  const [showEditInput, setShowEditInput] = useState(false);
+  const [editInputData, setEditInputData] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -26,13 +28,15 @@ const ProjectsList = () => {
       const data = await response.data;
       setProjectsData(data.data);
       console.log("All Data: ", data);
-      
+
     };
 
     getProjects();
+    console.log("projectData", projectsData);
+
   }, []);
-  
-  const handleClickDeleteProjectName = (id: string, name: string) => {
+
+  const handleClickDeleteProjectName = (id: string) => {
     const deleteProject = async () => {
       const response = await codeVerseApi.delete(`project/delete/${id}`, {
         headers: {
@@ -41,14 +45,14 @@ const ProjectsList = () => {
       });
 
       const data = await response.data.data;
-      setProjectsData(prevState => )
+      setProjectsData(prevState => prevState?.filter(p => p.id !== id) || [])
     };
     deleteProject();
   };
 
   const handleClickEditProjectName = (id: string, name: string) => {
     const editProjectName = async () => {
-      const response = await codeVerseApi.post(`/projects/update/project-name/${id}`, {
+      const response = await codeVerseApi.post(`/project/update/project-name/${id}`, {
         name
       }, {
         headers: {
@@ -56,11 +60,14 @@ const ProjectsList = () => {
         }
       });
 
-    const data = await response.data.data;
-    console.log(data, "wwwwthekkldklsjsjd;lj");
-    
+      const data = await response.data.data;
+      console.log("edit sucessful", data, "wwwwthekkldklsjsjd;lj");
+    setShowEditInput(false);
+    setProjectsData(prevState => prevState?.map(p => p.id === id ? { ...p, name } : p) || []);
+
     };
-    // editProjectName();
+    editProjectName();
+    console.log("Edit: ", id, name);
   };
 
   const handleClick = (id: string) => {
@@ -69,13 +76,27 @@ const ProjectsList = () => {
 
   return (
     <>
-    <div className={`${styles.container__projects}`}>
-      {projectsData?.map((project: ProjectItemProps
-      ) => (
-        <ProjectItem key={project.id} project={project} onEditName={handleClickEditProjectName} onClick={handleClick} />
-      ))}
-      
-    </div>
+      <div className={`${styles.container__projects}`}>
+        {projectsData?.map((project: ProjectItemDataProps
+        ) => {
+          console.log("me hi to bro", project);
+
+          return (
+            <ProjectItem 
+            key={project.id} 
+            project={project} 
+            onEditName={handleClickEditProjectName} 
+            onDeleteName={handleClickDeleteProjectName} 
+            showEditInput={showEditInput} 
+            setShowEditInput={setShowEditInput}
+            onClick={handleClick} 
+            editInputData={editInputData}
+            setEditInputData={setEditInputData}
+            />
+          )
+        })}
+
+      </div>
     </>
 
   );

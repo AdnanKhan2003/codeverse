@@ -50,5 +50,6 @@ export const { setAuth, logout } = authSlice.actions
 export const getAccessToken = (state: RootState) => state.auth.accessToken
 export const getRefreshToken = (state: RootState) => state.auth.refreshToken
 export const getAuthStatus = (state: RootState) => state.auth.isLoggedIn
+export const getAuth = (state: RootState) => state.auth;
 
 export default authSlice.reducer

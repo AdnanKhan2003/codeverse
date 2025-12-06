@@ -102,7 +102,7 @@ const ProjectDetails = () => {
   return (
     <section className={`${styles.project__details__container}`}>
       <Button onClick={handleClickExecuteCode} name="run" style={{ position: 'absolute', top: 0, right: 0, margin: '1rem 1rem 0 0' }}>Run</Button>
-      <Button onClick={handleClickSaveCode} name="save">Save</Button>
+      <Button onClick={handleClickSaveCode} name="save" style={{ position: 'absolute', top: 0, right: 0, margin: '4rem 1rem 0 0' }}>Save</Button>
       <div className={`${styles.code__container}`}>
         <Editor 
         theme="vs-dark" 

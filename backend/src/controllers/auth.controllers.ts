@@ -197,6 +197,7 @@ const checkAuth = (asyncHandler(async (req, res, next) => {
     SELECT 
     id, fullname, email, profilePic, refreshToken
     FROM users
+    WHERE id = ${id}
   `;
 
   if(!user) {
@@ -204,7 +205,7 @@ const checkAuth = (asyncHandler(async (req, res, next) => {
   }
 
   res.status(OK).json(
-    new APIResponse(OK, { user }, "User Not Authenticated")
+    new APIResponse(OK, { user }, "User Authenticated")
   );
 }));
 

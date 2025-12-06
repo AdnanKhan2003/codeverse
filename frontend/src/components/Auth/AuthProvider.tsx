@@ -13,7 +13,6 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getAuthStatus);
-  const pathname = usePathname();
 
   useEffect(() => {
     const restoreAuth = async () => {

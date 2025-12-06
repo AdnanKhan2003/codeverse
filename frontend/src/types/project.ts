@@ -14,10 +14,15 @@ type Project = {
     updatedat: Date;
 };
 
-type ProjectProps = {
+type ProjectItemProps = {
     project: Project;
-    onClick: (id: string) => void;
-    // onEditName: (id: string, name: string) => void;
+    onClick: (id: string) => void; 
+    onEditName: (id: string, name: string) => void;
+    onDeleteName: (id: string) => void;
+    showEditInput: boolean; 
+    setShowEditInput: (show: boolean) => void;
+    editInputData: string;
+    setEditInputData: (value: string) => void;
 };
 
 type ProjectsList = {
@@ -25,14 +30,17 @@ type ProjectsList = {
 };
 
 
-type ProjectItemProps = {
+type ProjectItemDataProps = {
     id: string;
     name: string;
     code: string;
-    language: string;
+    createdby: AuthUser;
+    projectlanguage: string;
     version: string;
-    createdBy: AuthUser;
+    createdat: Date;
+    updatedat: Date;
+    project: Project;
 }
 
 
-export type { Project, ProjectProps, ProjectsList, ProjectItemProps };
+export type { Project, ProjectItemProps, ProjectsList, ProjectItemDataProps };

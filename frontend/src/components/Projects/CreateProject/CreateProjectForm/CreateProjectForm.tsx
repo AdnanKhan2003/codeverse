@@ -12,7 +12,7 @@ type Runtime = {
     languageWithVersion: string;
 }
 
-const CreateProjectForm = () => {
+const CreateProjectForm = ({ setShowModal } : { setShowModal: (show: boolean) => void }) => {
     const [ fetchedLanguages, setFetchedLanguages ] = useState<Runtime[]>([]);
     const [ newProjectInfo, setNewProjectInfo ] = useState({
         projectName: "",
@@ -47,7 +47,7 @@ const CreateProjectForm = () => {
 
         const data = response.data;
         console.log("done: ", data);
-        
+        setShowModal(false);
     };
 
     const accessToken = useSelector(getAccessToken);
