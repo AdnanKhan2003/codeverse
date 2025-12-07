@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import ProjectItem from "../ProjectItem/ProjectItem";
-import type { ProjectItemDataProps, ProjectsList } from "@/types/project";
+import type { ProjectEditInputData, ProjectItemDataProps, ProjectsList } from "@/types/project";
 
 import styles from "./ProjectsList.module.css";
 import { useEffect, useState } from "react";
@@ -14,11 +14,16 @@ import { getAccessToken } from "@/lib/features/auth/authSlice";
 const ProjectsList = () => {
   const accessToken = useSelector(getAccessToken);
   const [projectsData, setProjectsData] = useState<ProjectItemDataProps[] | null>([]);
-  const [showEditInput, setShowEditInput] = useState(false);
+  const [showEditInput, setShowEditInput] = useState<ProjectEditInputData>({
+    id: "",
+    visible: false,
+  });
   const [editInputData, setEditInputData] = useState("");
   const router = useRouter();
 
   useEffect(() => {
+    if (!accessToken) return;
+
     const getProjects = async () => {
       const response = await codeVerseApi.get("/project/", {
         headers: {
@@ -34,7 +39,7 @@ const ProjectsList = () => {
     getProjects();
     console.log("projectData", projectsData);
 
-  }, []);
+  }, [accessToken]);
 
   const handleClickDeleteProjectName = (id: string) => {
     const deleteProject = async () => {
@@ -62,8 +67,8 @@ const ProjectsList = () => {
 
       const data = await response.data.data;
       console.log("edit sucessful", data, "wwwwthekkldklsjsjd;lj");
-    setShowEditInput(false);
-    setProjectsData(prevState => prevState?.map(p => p.id === id ? { ...p, name } : p) || []);
+      setShowEditInput(prevState => ({ ...prevState, visible: false }));
+      setProjectsData(prevState => prevState?.map(p => p.id === id ? { ...p, name } : p) || []);
 
     };
     editProjectName();
@@ -82,16 +87,16 @@ const ProjectsList = () => {
           console.log("me hi to bro", project);
 
           return (
-            <ProjectItem 
-            key={project.id} 
-            project={project} 
-            onEditName={handleClickEditProjectName} 
-            onDeleteName={handleClickDeleteProjectName} 
-            showEditInput={showEditInput} 
-            setShowEditInput={setShowEditInput}
-            onClick={handleClick} 
-            editInputData={editInputData}
-            setEditInputData={setEditInputData}
+            <ProjectItem
+              key={project.id}
+              project={project}
+              onEditName={handleClickEditProjectName}
+              onDeleteName={handleClickDeleteProjectName}
+              showEditInput={showEditInput}
+              setShowEditInput={setShowEditInput}
+              onClick={handleClick}
+              editInputData={editInputData}
+              setEditInputData={setEditInputData}
             />
           )
         })}

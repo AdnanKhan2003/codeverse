@@ -10,11 +10,12 @@ type Runtime = {
     language: string;
     version: string;
     languageWithVersion: string;
+    aliases: string[]
 }
 
-const CreateProjectForm = ({ setShowModal } : { setShowModal: (show: boolean) => void }) => {
-    const [ fetchedLanguages, setFetchedLanguages ] = useState<Runtime[]>([]);
-    const [ newProjectInfo, setNewProjectInfo ] = useState({
+const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => void }) => {
+    const [fetchedLanguages, setFetchedLanguages] = useState<Runtime[]>([]);
+    const [newProjectInfo, setNewProjectInfo] = useState({
         projectName: "",
         // projectCode: "",
         // projectLanguage: "",
@@ -26,14 +27,10 @@ const CreateProjectForm = ({ setShowModal } : { setShowModal: (show: boolean) =>
         e.preventDefault();
 
         const projectCode = "";
-        const [ projectLanguage, projectVersion ] = newProjectInfo.projectNameAndVersion.split(" ");
-        console.log(fetchedLanguages);
-        console.log(newProjectInfo.projectName);
-        console.log(projectVersion);
-        console.log(projectCode);
-        console.log(projectLanguage);
-        console.log(newProjectInfo.projectNameAndVersion);
-        
+        const [projectLanguage, projectVersion] = newProjectInfo.projectNameAndVersion.split(" ");
+        console.log("mai kaun hu", projectLanguage);
+        console.log("new project", newProjectInfo);
+
         const response = await codeVerseApi.post("/project/create-project", {
             name: newProjectInfo.projectName,
             code: projectCode,
@@ -61,10 +58,10 @@ const CreateProjectForm = ({ setShowModal } : { setShowModal: (show: boolean) =>
             });
             const data = await res.data;
             const allowedLanguages = ["java", "javascript", "c", "c++", "bash"]
-            const filteredData = data.data.filter((l: Runtime) => allowedLanguages.includes(l.language)).map((l: Runtime) => ({ language: l.language, version: l.version, languageWithVersion: `${l.language} ${l.version}` }));
+            const filteredData = data.data.filter((l: Runtime) => allowedLanguages.includes(l.language) || l.aliases.some(alias => allowedLanguages.includes(alias))).map((l: Runtime) => ({ language: l.language, version: l.version, languageWithVersion: `${l.language} ${l.version}` }));
 
             setFetchedLanguages(filteredData);
-            
+
 
         } catch (err) {
             console.log(err);
@@ -80,24 +77,24 @@ const CreateProjectForm = ({ setShowModal } : { setShowModal: (show: boolean) =>
             <div>
                 <label htmlFor="name" className={`${styles.label__project__name}`}>Project Name</label>
                 <input
-                 type="text" 
-                 name="project__name" 
-                 value={newProjectInfo.projectName}
-                 onChange={(e) => setNewProjectInfo(prevState => ({ ...prevState, projectName: e.target.value }))}
-                 className={`${styles.project__name}`} 
-                 placeholder="Enter Your Project Name" />
+                    type="text"
+                    name="project__name"
+                    value={newProjectInfo.projectName}
+                    onChange={(e) => setNewProjectInfo(prevState => ({ ...prevState, projectName: e.target.value }))}
+                    className={`${styles.project__name}`}
+                    placeholder="Enter Your Project Name" />
             </div>
             <div className={`${styles.select__language__container}`}>
                 <label htmlFor="language" className={`${styles.label__project__language}`}>Choose Project Language</label>
-                <select 
-                className={`${styles.project__language}`} 
-                name="project__language"
-                value={newProjectInfo.projectNameAndVersion}
-                onChange={(e) => setNewProjectInfo(prevState => ({ ...prevState, projectNameAndVersion: e.target.value }))}
+                <select
+                    className={`${styles.project__language}`}
+                    name="project__language"
+                    value={newProjectInfo.projectNameAndVersion}
+                    onChange={(e) => setNewProjectInfo(prevState => ({ ...prevState, projectNameAndVersion: e.target.value }))}
                 >
                     {/* {fetchedLanguages.} */}
                     {fetchedLanguages.map(l =>
-                        <option className={`${styles.project__language__option}`} value={l.languageWithVersion}>{l.languageWithVersion}</option>
+                        <option key={l.languageWithVersion} className={`${styles.project__language__option}`} value={l.languageWithVersion}>{l.languageWithVersion}</option>
                     )}
                     {/* <option className={`${styles.project__language__option}`} value="">JavaScript</option>
                     <option className={`${styles.project__language__option}`} value="">C</option>

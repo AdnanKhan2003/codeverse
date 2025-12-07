@@ -8,7 +8,7 @@ import type { ProjectItemProps } from "@/types/project";
 import pythonLogo from "@/assets/logos/python.png"
 import bashLogo from "@/assets/logos/bash.png"
 import cLogo from "@/assets/logos/c.png"
-import cppLogo from "@/assets/logos/cpp.png"
+import cppLogo from "@/assets/logos/c++.png"
 import javaLogo from "@/assets/logos/java.png"
 import javascriptLogo from "@/assets/logos/javascript.png"
 
@@ -21,7 +21,7 @@ const languageLogos: Record<string, StaticImageData> = {
   python: pythonLogo,
   bash: bashLogo,
   c: cLogo,
-  cpp: cppLogo,
+  "c++": cppLogo,
   java: javaLogo,
   javascript: javascriptLogo,
 };
@@ -36,7 +36,8 @@ const ProjectItem = ({
   editInputData,
   setEditInputData
 }: ProjectItemProps) => {
-  const logoImg = languageLogos[project.projectlanguage] ?? mainLogo;
+  let logoImg = languageLogos[project.projectlanguage] ?? mainLogo;
+
   console.log('w', project, project.projectlanguage, languageLogos[project.projectlanguage]);
 
   const handleDeleteProject = (e: MouseEvent<HTMLButtonElement>) => {
@@ -48,7 +49,10 @@ const ProjectItem = ({
   // }
   const handleShowEditProject = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setShowEditInput(true);
+    setShowEditInput({
+      id: project.id,
+      visible: true,
+    });
   };
 
   return (
@@ -59,7 +63,7 @@ const ProjectItem = ({
 
       <div className={`${styles.project__item__text__content}`}>
         <div className={`${styles.project__item__info}`}>
-          {showEditInput ? (<>
+          {showEditInput.visible && showEditInput.id === project.id ? (<>
             <input
               value={editInputData}
               onClick={(e: MouseEvent<HTMLInputElement>) => e.stopPropagation()}
@@ -75,7 +79,7 @@ const ProjectItem = ({
             }}>Edit</button>
             <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
-              setShowEditInput(false);
+              setShowEditInput(prevState => ({ ...prevState, visible: false }));
             }}>Cancel</button>
           </>) :
             <h5 className="project__item__info__title">{project.name}</h5>

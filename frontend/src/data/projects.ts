@@ -35,7 +35,7 @@ const projectsData: Project[] = [
     id: "6",
     projectName: "Abc",
     date: "5 Sept, 2025",
-    projectLanguage: "cpp",
+    projectLanguage: "c++",
   },
 ];
 

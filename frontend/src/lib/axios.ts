@@ -16,7 +16,7 @@ const codeVerseApi = axios.create({
 codeVerseApi.interceptors.response.use(
   response => response,
   async error => {
-    const authData = store.getState(getAuth);
+    const authData = store.getState();
 
     const originalRequest = error.config;
 
@@ -25,7 +25,7 @@ codeVerseApi.interceptors.response.use(
 
       try {
         // const refreshToken = localStorage.getItem("refreshToken");
-        const refreshToken = authData.auth;
+        const refreshToken = authData.auth.refreshToken;
         if (!refreshToken) throw new Error("Not Authenticated");
 
         const response = await codeVerseApi.post(`/auth/refresh-token`, {
@@ -46,7 +46,7 @@ codeVerseApi.interceptors.response.use(
         return codeVerseApi(originalRequest);
       } catch (err) {
         console.log(err);
-        
+
       }
     }
   }

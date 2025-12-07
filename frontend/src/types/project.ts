@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { AuthUser } from "./auth";
 
 type Project = {
@@ -14,13 +15,18 @@ type Project = {
     updatedat: Date;
 };
 
+interface ProjectEditInputData {
+    id: string,
+    visible: boolean,
+}
+
 type ProjectItemProps = {
     project: Project;
-    onClick: (id: string) => void; 
+    onClick: (id: string) => void;
     onEditName: (id: string, name: string) => void;
     onDeleteName: (id: string) => void;
-    showEditInput: boolean; 
-    setShowEditInput: (show: boolean) => void;
+    showEditInput: ProjectEditInputData;
+    setShowEditInput: Dispatch<SetStateAction<ProjectEditInputData>>;
     editInputData: string;
     setEditInputData: (value: string) => void;
 };
@@ -43,4 +49,4 @@ type ProjectItemDataProps = {
 }
 
 
-export type { Project, ProjectItemProps, ProjectsList, ProjectItemDataProps };
+export type { Project, ProjectItemProps, ProjectsList, ProjectItemDataProps, ProjectEditInputData };
