@@ -19,6 +19,7 @@ const PG_PASSWORD = getEnv("DB_PGPASSWORD");
 const PG_HOST = getEnv("DB_PGHOST");
 const DB_DATABASE = getEnv("DB_DATABASE");
 const CORS_ORIGIN = getEnv("CORS_ORIGIN");
+const NODE_ENV = getEnv("NODE_ENV");
 const CLOUD_NAME = getEnv("CLOUD_NAME");
 const API_KEY = getEnv("API_KEY");
 const API_SECRET = getEnv("API_SECRET");
@@ -43,5 +44,6 @@ export {
   ACCESS_TOKEN_SECRET,
   ACCESS_TOKEN_EXPIRY,
   REFRESH_TOKEN_SECRET,
-  REFRESH_TOKEN_EXPIRY
+  REFRESH_TOKEN_EXPIRY,
+  NODE_ENV
 };

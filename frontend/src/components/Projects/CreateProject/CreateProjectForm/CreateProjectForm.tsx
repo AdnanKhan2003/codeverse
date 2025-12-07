@@ -87,6 +87,7 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
 
     useEffect(() => {
         if (!accessToken) return;
+
         getRuntimes();
     }, [accessToken]);
     return (

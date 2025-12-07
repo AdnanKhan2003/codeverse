@@ -36,7 +36,8 @@ const ProjectItem = ({
   editInputData,
   setEditInputData
 }: ProjectItemProps) => {
-  let logoImg = languageLogos[project.projectlanguage] ?? mainLogo;
+  const logoImg = languageLogos[project.projectlanguage] ?? mainLogo;
+  console.log("logoImg", logoImg);
 
   console.log('w', project, project.projectlanguage, languageLogos[project.projectlanguage]);
 

@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth.routes";
 import projectRoutes from "./routes/project.routes";
 import codeRoutes from "./routes/code.routes";
 
-import { CORS_ORIGIN } from "./constants/env";
+import { CORS_ORIGIN, NODE_ENV } from "./constants/env";
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/notFound.middleware";
 
@@ -29,6 +29,16 @@ app.use('/api/health', healthCheckRoute);
 app.use('/api/auth', authRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/code', codeRoutes);
+
+const path = require("path");
+const __dirname = path.resolve();
+if (NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")))
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+  })
+}
 
 app.use(notFoundHandler);
 app.use(errorHandler);

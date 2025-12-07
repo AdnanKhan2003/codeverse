@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Button from "@/ui/Button/Button";
 import ModalPortal from "@/ui/Modal/Modal";
 
 import styles from "./ProjectSectionHeader.module.css";
 import CreateProject from "../CreateProject/CreateProject";
-import { codeVerseApi } from "@/lib/axios";
 import { useSelector } from "react-redux";
-import { getAccessToken } from "@/lib/features/auth/authSlice";
 import { RootState } from "@/lib/store";
 
 const ProjectSectionHeader = () => {

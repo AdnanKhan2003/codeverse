@@ -77,6 +77,7 @@ const ProjectDetails = () => {
         console.log("lol: ", data);
 
       } catch (err) {
+        console.log("err: ", err);
         notFound();
       } finally {
         setIsLoading(false);

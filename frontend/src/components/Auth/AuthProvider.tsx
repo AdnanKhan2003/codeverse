@@ -2,7 +2,6 @@
 
 import { codeVerseApi } from "@/lib/axios";
 import { getAuthStatus, logout, setAuth } from "@/lib/features/auth/authSlice";
-import { usePathname } from "next/navigation";
 import { ReactNode, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,6 +34,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           };
           dispatch(setAuth({ accessToken, refreshToken, user }));
         } catch (err) {
+          console.log("err: ", err);
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
 
@@ -44,7 +44,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
     restoreAuth();
-  }, [dispatch]);
+    // }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <>{children}</>

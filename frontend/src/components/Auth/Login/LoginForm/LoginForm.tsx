@@ -3,7 +3,7 @@
 import Input from "@/ui/Input/Input";
 
 import styles from "./LoginForm.module.css";
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { isEmail, isEmpty, minLength } from "@/lib/utils";
 import { GuestLogin } from "@/types/input";
 import Link from "next/link";
@@ -63,7 +63,7 @@ const LoginForm = () => {
     }));
   };
 
-  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {
+  const handleTogglePasswordView = () => {
     setShowPassword((prevState) => !prevState);
   };
 

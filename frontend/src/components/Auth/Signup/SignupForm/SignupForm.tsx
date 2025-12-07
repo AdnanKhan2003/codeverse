@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent, MouseEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 import Input from "@/ui/Input/Input";
 
@@ -29,7 +29,7 @@ const SignupForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {
+  const handleTogglePasswordView = () => {
     console.log("eye");
 
     setShowPassword((prevState) => !prevState);
@@ -54,6 +54,8 @@ const SignupForm = () => {
 
   const handleFormValidation = () => {
     const { fullName, email, password, profilePic } = signupInputs;
+    console.log("yet to implement", profilePic);
+
 
     const errorsInput = {
       fullName: "",
@@ -112,7 +114,7 @@ const SignupForm = () => {
             refreshToken: resData.data.refreshToken,
           })
         )
-  
+
 
         router.push("/projects");
         console.log(resData);
@@ -124,7 +126,7 @@ const SignupForm = () => {
         console.log("Signup Error: ", err.message);
       } else {
         console.log("Signup Error", err);
-        
+
       }
     }
   };

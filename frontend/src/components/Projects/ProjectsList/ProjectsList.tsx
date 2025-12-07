@@ -63,6 +63,7 @@ const ProjectsList = () => {
         });
 
         const data = await response.data.data;
+        console.log("Deleted Data: ", data);
         setProjectsData(prevState => prevState?.filter(p => p.id !== id) || [])
       };
       deleteProject();

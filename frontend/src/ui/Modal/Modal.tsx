@@ -6,14 +6,14 @@ import { MdClose } from "react-icons/md";
 import type { ModalProps } from '@/types/modal';
 
 import styles from './Modal.module.css';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const Modal = ({ children, showModal, onClose }: ModalProps) => {
   const dialogElementRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dialog = dialogElementRef.current;
-    if(!dialog) return;
+    if (!dialog) return;
 
     if (showModal) {
       dialog.showModal();
@@ -44,18 +44,18 @@ const Modal = ({ children, showModal, onClose }: ModalProps) => {
 }
 
 const ModalPortal = ({ children, showModal, onClose }: ModalProps) => {
-    const [ modalRoot, setModalRoot ] = useState<HTMLElement | null>(null);
+  const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
 
-    useEffect(() => {
-      const root = document.getElementById("modal__root");
-      setModalRoot(root);
-    }, []);
+  useEffect(() => {
+    const root = document.getElementById("modal__root");
+    setModalRoot(root);
+  }, []);
 
-    if(!modalRoot) return;
+  if (!modalRoot) return;
 
-    return (
-        createPortal(<Modal showModal={showModal} onClose={onClose}>{children}</Modal>, modalRoot)
-    );
+  return (
+    createPortal(<Modal showModal={showModal} onClose={onClose}>{children}</Modal>, modalRoot)
+  );
 };
 
 export default ModalPortal;

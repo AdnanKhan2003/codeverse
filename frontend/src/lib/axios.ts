@@ -1,6 +1,5 @@
-import { RootState } from "@reduxjs/toolkit/query";
 import axios from "axios";
-import { getAuth, setAuth } from "./features/auth/authSlice";
+import { setAuth } from "./features/auth/authSlice";
 import { store } from "./store";
 
 
