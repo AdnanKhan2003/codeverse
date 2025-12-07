@@ -17,7 +17,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [ inputErrors, setInputErrors ] = useState({
+  const [inputErrors, setInputErrors] = useState({
     email: "",
     password: "",
   });
@@ -42,7 +42,7 @@ const LoginForm = () => {
     if (!isEmail(email) || isEmpty(email)) {
       errorsInput.email = "Invalid or Empty Email";
       console.log("q nhi detect");
-      
+
       isValid = false;
     }
 
@@ -63,7 +63,7 @@ const LoginForm = () => {
     }));
   };
 
-  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {   
+  const handleTogglePasswordView = (e: MouseEvent<HTMLDivElement>) => {
     setShowPassword((prevState) => !prevState);
   };
 
@@ -80,43 +80,44 @@ const LoginForm = () => {
 
     const isValid = handleFormValidation();
 
-    if(!isValid) return;
+    if (!isValid) return;
 
     try {
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData);
 
 
-    const res = await codeVerseApi.post("/auth/login", inputValues);
-    const resData = await res.data;
+      const res = await codeVerseApi.post("/auth/login", inputValues);
+      const resData = await res.data;
 
-    
-    if (resData?.success) {
-      localStorage.setItem("accessToken", resData.data.accessToken);
-      localStorage.setItem("refreshToken", resData.data.refreshToken);
 
-      console.log("Saving token", resData.data.accessToken);
-      
-      dispatch(
-        setAuth({
-          accessToken: resData.data.accessToken,
-          refreshToken: resData.data.refreshToken,
-        })
-      )
+      if (resData?.success) {
+        localStorage.setItem("accessToken", resData.data.accessToken);
+        localStorage.setItem("refreshToken", resData.data.refreshToken);
 
-      router.push("/projects");
-      console.log(data);  
+        console.log("Saving token", resData.data.accessToken);
 
-    } else {
-      console.log("login failed");
+        dispatch(
+          setAuth({
+            accessToken: resData.data.accessToken,
+            refreshToken: resData.data.refreshToken,
+            user: resData.data.user
+          })
+        )
+
+        router.push("/projects");
+        console.log(data);
+
+      } else {
+        console.log("login failed");
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log("Login Error: ", err.message);
+      } else {
+        console.log("Login Error: ", err);
+      }
     }
-  } catch(err: unknown) {
-    if(err instanceof Error) {
-      console.log("Login Error: ", err.message);
-    } else {
-      console.log("Login Error: ", err);
-    }
-  }
   };
 
   return (

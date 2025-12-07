@@ -10,9 +10,14 @@ import CreateProject from "../CreateProject/CreateProject";
 import { codeVerseApi } from "@/lib/axios";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "@/lib/features/auth/authSlice";
+import { RootState } from "@/lib/store";
 
 const ProjectSectionHeader = () => {
-  const [ showModal, setShowModal ] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const user = useSelector((state: RootState) => state.auth);
+  const userName = user?.user?.fullname;
+  // const userName = user?.user?.fullname || user?.user?.fullName;
+  console.log("user", user, userName);
 
   return (
     <>
@@ -21,7 +26,7 @@ const ProjectSectionHeader = () => {
       </ModalPortal>
 
       <div className={`${styles.project__section__header}`}>
-        <div className="welcome__container">👋 Hi, Adnan</div>
+        <div className="welcome__container">👋 Hi, {userName}</div>
 
         <Button size="large" onClick={() => setShowModal(true)}>Create Project</Button>
       </div>

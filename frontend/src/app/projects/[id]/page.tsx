@@ -7,7 +7,7 @@ import Button from "@/ui/Button/Button";
 import { codeVerseApi } from "@/lib/axios";
 import { getAccessToken } from "@/lib/features/auth/authSlice";
 import { useSelector } from "react-redux";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 
 type ProjectProps = {
   code: string;
@@ -33,26 +33,54 @@ type OutputProps = {
 } | null;
 
 const ProjectDetails = () => {
-  const [ code, setCode ] = useState("");
-  const [ project, setProject ] = useState<ProjectProps | null>();
-  const [ output, setOutput ] = useState<OutputProps>(null);
+  const [code, setCode] = useState("");
+  const [project, setProject] = useState<ProjectProps | null>();
+  const [output, setOutput] = useState<OutputProps>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isNotFound, setIsNotFound] = useState(false);
   const accessToken = useSelector(getAccessToken);
   const params = useParams();
   const id = params.id;
 
   useEffect(() => {
-    const getProjectDetails = async () => {
-      const response = await codeVerseApi.get(`/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+    const isValidId = /^\d+$/.test(id as string);
+    if (!isValidId) {
+      setIsNotFound(true);
+      return;
+    }
 
-      const data = await response.data.data;
-      setProject(data);
-      setCode(data.code || "");
-      console.log("lol: ", data);
-      
+    const getProjectDetails = async () => {
+      try {
+        const response = await codeVerseApi.get(`/project/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+
+        if (!response?.data?.success) {
+          setIsNotFound(true);
+          return;
+        }
+
+        const data = await response?.data?.data;
+
+        if (!data) {
+          setIsNotFound(true);
+
+          return;
+        }
+
+        setProject(data);
+        setCode(data.code || "");
+        setIsLoading(false);
+        console.log("lol: ", data);
+
+      } catch (err) {
+        notFound();
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getProjectDetails();
@@ -70,7 +98,7 @@ const ProjectDetails = () => {
 
       const data = await response.data;
       console.log("Saved data: ", data);
-      
+
     };
 
     saveCode();
@@ -79,7 +107,7 @@ const ProjectDetails = () => {
   const handleClickExecuteCode = () => {
     const executeCode = async () => {
       console.log(project, "gg", code);
-      
+
       const response = await codeVerseApi.post("/code/execute-code", {
         language: project?.projectlanguage,
         version: project?.version,
@@ -93,22 +121,30 @@ const ProjectDetails = () => {
       const data = response.data.data;
       setOutput(data);
       console.log("gg", data);
-      
+
     };
 
     executeCode();
   };
+
+  if (isNotFound) {
+    notFound();
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <section className={`${styles.project__details__container}`}>
       <Button onClick={handleClickExecuteCode} name="run" style={{ position: 'absolute', top: 0, right: 0, margin: '1rem 1rem 0 0' }}>Run</Button>
       <Button onClick={handleClickSaveCode} name="save" style={{ position: 'absolute', top: 0, right: 0, margin: '4rem 1rem 0 0' }}>Save</Button>
       <div className={`${styles.code__container}`}>
-        <Editor 
-        theme="vs-dark" 
-        value={code}
-        defaultLanguage="javascript"
-        onChange={(value) => setCode(value ?? "")}
+        <Editor
+          theme="vs-dark"
+          value={code}
+          defaultLanguage="javascript"
+          onChange={(value) => setCode(value ?? "")}
         />
       </div>
       <section className={`${styles.output__container}`}>

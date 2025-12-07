@@ -49,6 +49,9 @@ const ProjectItem = ({
   // }
   const handleShowEditProject = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+
+    setEditInputData(project.name);
+
     setShowEditInput({
       id: project.id,
       visible: true,
@@ -71,13 +74,14 @@ const ProjectItem = ({
                 e.stopPropagation();
                 setEditInputData(e.target.value);
               }}
+              className={styles.project_item_edit_input}
               type="text"
               placeholder="Edit Project Name" />
-            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
+            <button className={`${styles.btn_edit} ${styles.btn_edit_done}`} onClick={(e: MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
               onEditName(project.id, editInputData);
             }}>Edit</button>
-            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
+            <button className={`${styles.btn_edit} ${styles.btn_edit_cancel}`} onClick={(e: MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
               setShowEditInput(prevState => ({ ...prevState, visible: false }));
             }}>Cancel</button>

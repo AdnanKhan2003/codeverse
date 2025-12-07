@@ -1,4 +1,3 @@
-
 .project__item {
     width: 100%;
     justify-content: flex-start;
@@ -7,22 +6,27 @@
     border-radius: .3rem;
     cursor: pointer;
 }
+
 .project__item:hover {
     background-color: var(--surface);
 }
+
 .project__item img {
     height: auto;
 }
+
 .project__item__text__content {
     justify-content: space-between;
     padding-left: 1.4rem;
 }
+
 .project__item,
 .project__item__text__content {
     display: flex;
     align-items: center;
     width: 100%;
 }
+
 .project__item__info {
     margin-right: auto;
 }
@@ -30,4 +34,43 @@
 .project__item__btns__container button svg {
     width: 100%;
     display: block;
+}
+
+.project_item_edit_input {
+    padding: .3rem .7rem;
+    border-radius: .3rem;
+    border: 1px solid var(--border);
+    outline: none;
+    background: var(--surface);
+    color: var(--text);
+    margin-right: .4rem;
+}
+
+.btn_edit {
+    padding: .3rem .74rem;
+    border-radius: .3rem;
+    border: none;
+    outline: none;
+    background: var(--primary);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.btn_edit_done {
+    background: green;
+    margin-right: .24rem;
+    margin-left: .4rem;
+}
+
+.btn_edit_cancel {
+    background: darkred;
+}
+
+.btn_edit_done:hover {
+    background-color: #90EE90;
+    color: #000;
+}
+
+.btn_edit_cancel:hover {
+    background: #CD5C5C;
 }

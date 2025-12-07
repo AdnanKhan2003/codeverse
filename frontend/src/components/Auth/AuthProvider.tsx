@@ -26,9 +26,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
               Authorization: `Bearer ${accessToken}`
             }
           });
-          const user = response.data;
-          console.log("user", user);
-          
+          const userData = response.data.data.user;
+          console.log("ap user", userData);
+
+          const user = {
+            ...userData,
+            fullname: userData.fullname || userData.fullName
+          };
           dispatch(setAuth({ accessToken, refreshToken, user }));
         } catch (err) {
           localStorage.removeItem("accessToken");

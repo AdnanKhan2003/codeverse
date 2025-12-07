@@ -14,6 +14,7 @@ import { getAccessToken } from "@/lib/features/auth/authSlice";
 const ProjectsList = () => {
   const accessToken = useSelector(getAccessToken);
   const [projectsData, setProjectsData] = useState<ProjectItemDataProps[] | null>([]);
+  const [isProjectLoading, setIsProjectLoading] = useState(true);
   const [showEditInput, setShowEditInput] = useState<ProjectEditInputData>({
     id: "",
     visible: false,
@@ -22,67 +23,89 @@ const ProjectsList = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      setIsProjectLoading(false);
+      return;
+    }
 
     const getProjects = async () => {
-      const response = await codeVerseApi.get("/project/", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
-      const data = await response.data;
-      setProjectsData(data.data);
-      console.log("All Data: ", data);
+      try {
+        setIsProjectLoading(true);
+        const response = await codeVerseApi.get("/project/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        const data = await response.data;
+        setProjectsData(data.data);
+        console.log("All Data: ", data);
 
+
+      } catch (error) {
+        console.log("Error fetching projects", error);
+      }
+      finally {
+        setIsProjectLoading(false);
+      }
     };
 
     getProjects();
-    console.log("projectData", projectsData);
 
   }, [accessToken]);
 
   const handleClickDeleteProjectName = (id: string) => {
-    const deleteProject = async () => {
-      const response = await codeVerseApi.delete(`project/delete/${id}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+    try {
+      const deleteProject = async () => {
+        const response = await codeVerseApi.delete(`project/delete/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
 
-      const data = await response.data.data;
-      setProjectsData(prevState => prevState?.filter(p => p.id !== id) || [])
-    };
-    deleteProject();
+        const data = await response.data.data;
+        setProjectsData(prevState => prevState?.filter(p => p.id !== id) || [])
+      };
+      deleteProject();
+    } catch (error) {
+      console.log("Error deleting project", error);
+    }
   };
 
   const handleClickEditProjectName = (id: string, name: string) => {
     const editProjectName = async () => {
-      const response = await codeVerseApi.post(`/project/update/project-name/${id}`, {
-        name
-      }, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
+      try {
+        const response = await codeVerseApi.post(`/project/update/project-name/${id}`, {
+          name
+        }, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
 
-      const data = await response.data.data;
-      console.log("edit sucessful", data, "wwwwthekkldklsjsjd;lj");
-      setShowEditInput(prevState => ({ ...prevState, visible: false }));
-      setProjectsData(prevState => prevState?.map(p => p.id === id ? { ...p, name } : p) || []);
+        const data = await response.data.data;
+        console.log("edit sucessful", data, "wwwwthekkldklsjsjd;lj");
+        setShowEditInput(prevState => ({ ...prevState, visible: false }));
+        setProjectsData(prevState => prevState?.map(p => p.id === id ? { ...p, name } : p) || []);
 
+      } catch (error) {
+        console.log("Error editing project", error);
+      }
     };
     editProjectName();
-    console.log("Edit: ", id, name);
+
   };
 
   const handleClick = (id: string) => {
     router.push(`/projects/${id}`);
   };
 
+  if (isProjectLoading) return <p>Loading...</p>;
+
   return (
     <>
       <div className={`${styles.container__projects}`}>
-        {projectsData?.map((project: ProjectItemDataProps
+        {!isProjectLoading && projectsData?.length === 0 && <p>No Projects Found</p>}
+        {projectsData && projectsData?.map((project: ProjectItemDataProps
         ) => {
           console.log("me hi to bro", project);
 

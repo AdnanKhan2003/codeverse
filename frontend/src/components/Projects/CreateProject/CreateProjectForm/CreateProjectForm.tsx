@@ -5,6 +5,8 @@ import { MouseEvent, useEffect, useState } from "react";
 import { codeVerseApi } from "@/lib/axios";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "@/lib/features/auth/authSlice";
+import { useRouter } from "next/navigation";
+import { codeData } from "@/data/code";
 
 type Runtime = {
     language: string;
@@ -22,18 +24,25 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
         // projectVersion: "",
         projectNameAndVersion: ""
     });
+    const router = useRouter();
 
     const handleClickCreateProject = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         const projectCode = "";
         const [projectLanguage, projectVersion] = newProjectInfo.projectNameAndVersion.split(" ");
-        console.log("mai kaun hu", projectLanguage);
-        console.log("new project", newProjectInfo);
+        // console.log("mai kaun hu", projectLanguage);
+        // console.log("new project", newProjectInfo);
+
+        const key = projectLanguage.trim() == "c++" ? "cPlusPlus" : projectLanguage.trim() as keyof typeof codeData;
+        const codeBoilerTemplate = codeData[key];
+        console.log("code boiler template", codeBoilerTemplate);
+
+        const sendCode = projectCode !== "" ? projectCode : codeBoilerTemplate;
 
         const response = await codeVerseApi.post("/project/create-project", {
             name: newProjectInfo.projectName,
-            code: projectCode,
+            code: sendCode,
             projectLanguage,
             version: projectVersion
         }, {
@@ -42,9 +51,11 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
             }
         });
 
-        const data = response.data;
+        const data = response.data.data;
         console.log("done: ", data);
         setShowModal(false);
+
+        router.push(`/projects/${data.id}`)
     };
 
     const accessToken = useSelector(getAccessToken);
@@ -62,7 +73,13 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
 
             setFetchedLanguages(filteredData);
 
-
+            const defaultLang = filteredData.find((l: Runtime) => l.language === "javascript");
+            if (defaultLang) {
+                setNewProjectInfo(prev => ({
+                    ...prev,
+                    projectNameAndVersion: defaultLang.languageWithVersion
+                }));
+            }
         } catch (err) {
             console.log(err);
         }
