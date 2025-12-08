@@ -1,7 +1,7 @@
 import Button from "@/ui/Button/Button";
 
 import styles from "./CreateProjectForm.module.css";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useCallback, useEffect, useState } from "react";
 import { codeVerseApi } from "@/lib/axios";
 import { useSelector } from "react-redux";
 import { getAccessToken } from "@/lib/features/auth/authSlice";
@@ -60,7 +60,7 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
 
     const accessToken = useSelector(getAccessToken);
 
-    const getRuntimes = async () => {
+    const getRuntimes = useCallback(async () => {
         try {
             const res = await codeVerseApi.get("/code/runtimes", {
                 headers: {
@@ -83,13 +83,13 @@ const CreateProjectForm = ({ setShowModal }: { setShowModal: (show: boolean) => 
         } catch (err) {
             console.log(err);
         }
-    };
+    }, [accessToken]);
 
     useEffect(() => {
         if (!accessToken) return;
 
         getRuntimes();
-    }, [accessToken]);
+    }, [accessToken, getRuntimes]);
     return (
         <form className={`${styles.form__create__project}`}>
             <div>

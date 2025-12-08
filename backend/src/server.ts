@@ -1,3 +1,4 @@
+/// <reference path="./types/express-d/index.d.ts" />
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -31,12 +32,12 @@ app.use('/api/project', projectRoutes);
 app.use('/api/code', codeRoutes);
 
 const path = require("path");
-const __dirname = path.resolve();
+const _dirname = path.resolve();
 if (NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")))
+  app.use(express.static(path.join(_dirname, "../frontend/dist")))
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"))
+    res.sendFile(path.join(_dirname, "../frontend", "dist", "index.html"))
   })
 }
 

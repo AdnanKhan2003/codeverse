@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "This is an Online Code Editor with Multi-language Support",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
