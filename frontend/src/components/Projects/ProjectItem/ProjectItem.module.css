@@ -15,6 +15,10 @@
     height: auto;
 }
 
+.project__item__language {
+    width: 40px;
+}
+
 .project__item__text__content {
     justify-content: space-between;
     padding-left: 1.4rem;
