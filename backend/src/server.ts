@@ -2,6 +2,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import healthCheckRoute from "./routes/healthcheck.routes";
 import authRoutes from "./routes/auth.routes";
@@ -31,7 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/code', codeRoutes);
 
-const path = require("path");
+// const path = require("path");
 // const _dirname = path.resolve();
 if (NODE_ENV === "production") {
   const frontendDistPath = path.join(__dirname, "../", "frontend/dist");
