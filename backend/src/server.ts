@@ -35,7 +35,7 @@ app.use('/api/code', codeRoutes);
 // const path = require("path");
 // const _dirname = path.resolve();
 if (NODE_ENV === "production") {
-  const frontendDistPath = path.join(__dirname, "../", "frontend/dist");
+  const frontendDistPath = path.join(__dirname, "../../frontend/dist");
   app.use(express.static(frontendDistPath));
 
   app.get("*", (req, res) => {
